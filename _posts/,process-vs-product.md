@@ -1,6 +1,6 @@
 
 ---
-
+published: true
 title: 'Process vs. Product: Civic innovation beyond open data and civic apps'
 date: '2018-05-10T20:02:42.000+00:00'
 
