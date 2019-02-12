@@ -1,7 +1,8 @@
 ---
 published: true
-title: Process vs. Product: Civic innovation beyond open data and civic apps
 ---
+# Process vs. Product: Civic innovation beyond open data and civic apps
+
 ### We talk a lot about private sector innovation and entrepreneurship in Savannah, but far less often do we talk about innovation in the context of the more fundamental institution that affects all of us who live in coastal Georgia: Our local government.
 
 It’s easy to blame distrust in our government on bitter partisan divides and what seems at times unresponsive elected officials. But the erosion of civic trust in our governing institutions is about more than politics.
