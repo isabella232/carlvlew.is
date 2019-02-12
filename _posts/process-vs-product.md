@@ -1,6 +1,7 @@
 ---
 
 published: true
+title: Process vs. Product
 
 ---
 
