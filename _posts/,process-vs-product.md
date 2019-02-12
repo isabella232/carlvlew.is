@@ -3,7 +3,7 @@ title: Process vs. Product: Civic innovation beyond open data and civic apps
 date: '2018-05-10T20:02:42.000+00:00'
 categories:
   - Blog
-excerpt: "We talk a lot about private sector innovation and entrepreneurship, but far less often do we talk about innovation in the context of the more fundamental institution that affects all of us who live in coastal Georgia: Our local government. "
+excerpt: 'We talk a lot about private sector innovation and entrepreneurship, but far less often do we talk about innovation in the context of the more fundamental institution that affects all of us who live in coastal Georgia: Our local government. '
 ---
 
 We talk a lot about private sector innovation and entrepreneurship in Savannah, but far less often do we talk about innovation in the context of the more fundamental institution that affects all of us who live in coastal Georgia: Our local government.
