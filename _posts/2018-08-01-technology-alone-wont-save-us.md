@@ -1,5 +1,6 @@
 ---
 published: true
+title: Process vs. Product: Civic innovation beyond open data and civic apps
 ---
 ### We talk a lot about private sector innovation and entrepreneurship in Savannah, but far less often do we talk about innovation in the context of the more fundamental institution that affects all of us who live in coastal Georgia: Our local government.
 
