@@ -27,3 +27,24 @@ Since founding Open Savannah last year, we’ve helped restore public trust in l
 We’ve taken tactical steps toward bridging the city-citizen divide – from presenting previously inaccessible data on the area’s human service offerings in a mobile-friendly interactive map, to visualizing the municipal budget with an easily digestible interactive interactive mobile web app.
 
 But we must start doing more than project innovation to propel our mission into its next stage.
+
+To have a long-term transformative impact, we need to do a better job involving everyone – especially those living in the margins of our community – in an inclusive and deliberative process of reinventing the way our local government operates. As urban planner Jane Jacobs wrote more than five decades ago, “Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody.”
+
+Involving everybody requires meeting underrepresented communities where they are – literally – not expecting them to come to our meetings, on our turf, on our schedule.
+
+We must work together to create the city, county, and region we wish to see. Local government isn’t someone else’s job — nor is it something we can outsource to “tech people,” to elected officials, or to shiny new urban innovations.
+
+It’s up to us. All of us.
+
+Professional classes often talk about the promises of new “smart city” technologies. What makes a “smart city” smart, though, is not the technology; it’s the people.
+
+Technology alone won’t save government. But the values of public service and civic duty –combined with the practices of modern technology and collaborative design –upheld by an engaged, empowered and informed local public can.
+
+For our local institutions to continue to deliver essential public services in the coming decades, we must show up, speak up, step up, and engage in the slow, unglamorous work of shifting public perception about government from cynicism to responsibility and volunteerism.
+
+We must offer up our hands – not just our voices – and press elected officials to enact forward-thinking public policy that gives tech a seat at the table and helps to build high-quality, user-centered government digital services.
+
+Then, and only then, can we hope to become a truly “smart city.”
+
+*Carl V. Lewis is a former data journalist and digital editor turned public interest technologist and civic data designer. He founded Open Savannah (www.opensavannah.org) in 2017 with the goal of using technology and design methodologies for civic renewal. The Creative Coast is a non-profit organization supporting local innovators which is made possible by the City of Savannah and the SEDA. Contact him at carl@opensavannah.org or (912) 816-7007.*
+
