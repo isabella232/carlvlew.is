@@ -11,9 +11,9 @@ sidebar:
   - title: "Role"
     image: /images/portfolio/fountain.png
     image_alt: "logo"
-    text: "Designer, Front-End Developer"
+    text: "Videographer, Editor, Producer"
   - title: "Responsibilities"
-    text: "Reuters try PR stupid commenters should isn't a business model"
+    text: "Capture a unique story of a Bronx resident for daily dealine."
 gallery:
   - url:
     image_path:
@@ -26,8 +26,8 @@ gallery:
     alt:
 ---
 
-<iframe src="https://player.vimeo.com/video/28446395" width="640" height="472" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KdOTPBT-vDU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-For a city with a modest population of around 100,000, Macon, Ga. has a stunning 500 to 800 homeless people living on its streets. While numerous aid organizations in the city offer free meals, places to sleep and assistance in the job search, Macon’s homeless population lacks a safe and comfortable place to go during the day, leading many of them to congregate at a downtown fountain. This 2011 short-form documentary by Carl V. Lewis and Rachel Finley focuses on the effort to bring a day-shelter to Macon, which would provide the homeless with a roof over their heads and protect them from the the searing southern heat.
+For this Bronxite, candy bars are more than a tasty treat. They're a way to make ends meet.
 
 {% include gallery caption="" %}
