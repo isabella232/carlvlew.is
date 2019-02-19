@@ -1,0 +1,18 @@
+{% if paginator.total_pages > 1 %}
+<nav class="pagination">
+  {% assign first_page_path = site.paginate_path | replace: 'page:num', '' | replace: '//', '/' | absolute_url %}
+  <ul>
+    <li>
+      {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path }}">{% else %}<a href = "#" class="disabled" aria-hidden="true">{% endif %}Previous</a>
+    </li>
+
+    {% for index in (1..paginator.total_pages) %}
+      <li><a href="{{ paginator.first_page_path }}{% if index != 1 %}page/{{ index }}/{% endif %}" {% if index == paginator.page %} class = "disabled current" {% endif %}>{{ index }}</a></li>
+    {% endfor %}
+
+    <li>
+      {% if paginator.next_page %}<a href="{{ paginator.next_page_path }}">{% else %}<a href = "#" class="disabled" aria-hidden="true">{% endif %}Next</a>
+    </li>
+  </ul>
+</nav>
+{% endif %}
