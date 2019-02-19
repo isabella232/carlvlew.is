@@ -4,7 +4,7 @@ excerpt: "A man with a mission."
 date: 2012-03-31
 tags: 
   - "MULTIMEDIA"
-permalink: /portfolio/MercerCluster.com/
+permalink: /portfolio/cadnyman/
 header:
   teaser: /portfolio/fountain.png
 sidebar:
