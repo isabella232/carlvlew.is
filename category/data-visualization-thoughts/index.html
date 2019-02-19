@@ -1,0 +1,910 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.5.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Data-visualization-thoughts - carlvlew.is</title>
+
+
+
+
+<meta name="description" content="">
+
+
+
+
+<meta name="author" content="Carl V. Lewis">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="carlvlew.is">
+<meta property="og:title" content="data-visualization-thoughts">
+
+
+
+
+
+
+  <meta name="twitter:site" content="@carlvlewis">
+  <meta name="twitter:title" content="data-visualization-thoughts">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:url" content="/category/data-visualization-thoughts/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@Carl V. Lewis">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+  <link rel="next" href="/category/data-visualization-thoughts/page/2/">
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "@carlvlewis",
+      "url" : null,
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="carlvlew.is Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+    <!-- start custom head snippets -->
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7917556/6301972/css/fonts.css" />
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-102583563-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-102583563-1');
+</script>
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--categories">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">carlvlew.is</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/reporting/">News Writing</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/portfolio/">Portfolio</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/testimonials/">Testimonials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/resources/">Resources</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/research/">Research</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://cv.carlvlewis.net">CV</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/other-projects/">Other Projects</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://cvlassets.s3.amazonaws.com/1697569.jpg" alt="Carl V. Lewis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Carl V. Lewis</h3>
+    
+      <p class="author__bio" itemprop="description">
+        data visualization, civic-tech, digital humanities, media futurism.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">38.627003, -90.1999</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:hello@carlvlew.is">
+            <meta itemprop="email" content="hello@carlvlew.is" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://keybase.io/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-key" aria-hidden="true"></i> Keybase
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://github.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://twitter.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://plus.google.com/+carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-google-plus-square" aria-hidden="true"></i> Google+
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://quora.com/profile/carl-v-lewis-1" itemprop="sameAs">
+            <i class="fa fa-fw fa-quora" aria-hidden="true"></i> Quora
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://opendata.stackexchange.com/users/14970/carl-v-lewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-stack-exchange" aria-hidden="true"></i> StackExchange
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.codepen.io/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-codepen" aria-hidden="true"></i> Codepen
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://instagram.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-instagram" aria-hidden="true"></i> Instagram
+          </a>
+        </li>
+      
+
+      
+
+      
+
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.pinterest.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-pinterest" aria-hidden="true"></i> Pinterest
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+    <a href="https://bl.ocks.org/carlvlewis" itemprop="sameAs">
+      <i class="fa fa-fw fa-cubes" aria-hidden="true"></i> Bl.ocks
+    </a></li>  
+
+<li>
+    <a href="https://meetup.com/opensavannah" itemprop="sameAs">
+      <i class="fa fa-fw fa-meetup" aria-hidden="true"></i> Meetup
+    </a></li>
+  <li>
+    <a href="https://slideshare.com/opensavannah" itemprop="sameAs">
+      <i class="fa fa-fw fa-slideshare" aria-hidden="true"></i> Slideshare
+    </a></li>
+<li>
+    <a href="https://medium.com/@carlvlewis" itemprop="sameAs">
+      <i class="fa fa-fw fa-medium" aria-hidden="true"></i> Medium
+    </a></li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <div class="archive">
+    
+    
+      
+        <h1 class="page__title">data-visualization-thoughts</h1>
+      
+      <h3 class="archive__subtitle">Recent Posts</h3>
+
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/response-to-bubble-trees-the-visualization-of-hierarchical-structures/" rel="permalink">What we can learn about charts from The WSJ Guide to Information Graphics
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  12 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>July 13, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        Although geared primarily toward the production of static graphics for print publications, Dona M. Wong’s The Wall Street Journal Guide to Information Graphics (2010) provides a wealth of salient and time-honored tips and guidelines that any student of data visualization would be well-advised to follow. At the heart of Wong’s book is the notion that data integrity trumps all else, and no matter how aesthetically pleasing or visually powerful an information graphic may be, if it doesn’t communicate clear...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/building-a-responsive-site-in-less-than-20-minutes/" rel="permalink">Building a responsive site in less than 20 minutes
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  6 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>June 28, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        An ever-so-sleek responsive portfolio site I designed for a friend in less than 20 minutes using Skeleton as a foundation. With all this talk lately of the new era of responsive design, I realized today that I’ve yet to create anything that’s actually responsive. Given that I’ve only pondered using it in the implementation of complex, database-driven news sites, the task of tweaking every level of CSS to fit perfectly into a responsive grid system...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/using-data-viz-to-make-a-wire-story-stand-out-from-the-pack/" rel="permalink">Using data-viz to make a wire story stand out from the pack
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  13 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>May 06, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        I’ve been interested lately in finding examples of online-only, collaborative, non-profit newsrooms who’ve utilized the power of data visualization techniques to give added value to stories that otherwise wouldn’t necessarily be unique, and in doing so beat out legacy news organizations who published a text narrative alone. Take, for example, this data-rich story and interactive map displaying statewide testing results published by NJSpotlight Friday. While the news that only 8 out of 10 graduating seniors had passed New Jersey’s current...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/tutorial-making-a-geographical-bubble-map/" rel="permalink">Overlaying a bubble chart onto a Google map
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  25 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>May 04, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        Others may hate, but I’m a big fan of using bubbles to display data. When implemented correctly (i.e. scaled in terms of area instead of diameter), bubbles can be an aesthetically appealing and concise way to represent the value of data points in an inherently visual format. Bubbles are even more useful when they include interactivity, with events like mouseover and zoom allowing users to drill down and compare similar-sized bubbles more easily than they...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/why-calculus-matters-when-it-comes-to-data-driven-stories/" rel="permalink">Why calculus matters when it comes to data-driven stories
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  7 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 17, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        A quick refresher from my data visualization professor here at Columbia a couple of weeks ago reminded me why I was forced to spend all those grueling hours calculating standard deviation back in high school. See, when you’re using a data set to tell a story, the first step is to understand what that data says. And to do that, you’ve got to have a good idea of the range and variation of the values...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-makes-bostonglobe-com-the-worlds-best-designed-website/" rel="permalink">What makes BostonGlobe.com “the world’s best designed website”
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  16 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 16, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        With the Pulitzer Price announcements coming up later this afternoon, you’d think I’d be writing about whose up for the “Best Deadline Reporting” or “Best Public Service Journalism” prizes. But instead I want to talk about a different media award doled out during the past week: BostonGlobe.com’s designation as the “world’s best designed website” by the Society for News Design. Put simply, I can’t say I disagree. Yet before I divulge in my effusive praise...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/using-data-analysis-to-assess-a-digital-journalism-startups-future/" rel="permalink">Using data analysis to assess a digital news startup’s future
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  26 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 10, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        A close look at the numbers shows that, assuming the companyΓÇÖs ad rates and inventory held steady,  BusinessInsider.com nearly doubled its annual revenue in 2011 to about $8.5 million.
+
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/critique-agreement-groups-in-the-united-states-senate/" rel="permalink">Critique: “Agreement Groups in the United States Senate”
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  6 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 06, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        Take a look at this fascinating visualization of U.S. senate agreement groups made by Ph.D. student Adrian Friggeri. Using a complex agreement algorithim based upon data from GovTrack.us, the visualization displays how much all 100 senators of each U.S. Congress during the last 15 years have crossed the aisle –– or stuck to party lines –– on senate-floor votes. From a design standpoint, the visualization is nearly flawless. The thin red and blue lines help the...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/response-to-norman-emotional-design/" rel="permalink">Response to Norman, “Emotional Design”
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  5 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 06, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        Good aesthetics are more than just fluff when it comes to design. They are a core part of a product’s functionality. Such is the argument Donald A. Norman makes in his insightful 2005 book Emotional Design: Why We Love (or Hate) Everyday Things. For Norman, attractive things work better by boosting the mood of the user and therefore allowing him or her to think more clearly and operate it more efficiently. Undergirding Norman’s thesis that...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/respons-to-saffer-designing-for-interaction/" rel="permalink">Respons to Saffer, “Designing for Interaction”
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  7 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 06, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        Interactive designer Don Saffer artfully captures both the practical and the theoretical aspects of his profession in his 2006 book Designing for Interaction: Creating Smart Applications for Clever Devices. From its title, Saffer’s book may sound like a simple “how-to” guide to creating web apps with interactivity. Yet while it is certainly that to an extent, the book is more broadly a treatise and exploration of the ideology and terminology behind interactive design. Saffer sets...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/why-does-youtube-has-a-longer-lifespan-than-all-other-content/" rel="permalink">Why does YouTube have a longer lifespan than other platforms?
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  5 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 05, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        [/caption] When trying to reach a mass audience, what’s the best platform to share your content? Well, the obvious answer is as many places as you can. But according to a post by bitly analyzing traffic patterns, links shared on YouTube have a lifespan of 7.3 hours, compared to 2.8 hours on Twitter and 3.4 hours on Facebook. Why such the disparity? Why does YouTube have such a longer lifespan? Is it because video has...
+      
+    </p>
+  </article>
+</div>
+      
+        
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/critique-salubrious-nation-a-game-y-look-at-u-s-health/" rel="permalink">Critique: “Salubrious Nation: a game-y look at U.S. health”
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  10 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 04, 2012</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        In keeping with our recent weekly reading about the growing ‘gamification’ of data, I wanted to focus my critique this week on a map-styled data-driven game made my a group of researchers at Rutgers University called Salubrious Nation. The game attempts to engage users more deeply with public health data by luring them in with an addictive system of points and rewards. In terms of functionality, the game play operates fairly simply. A map presents demographic...
+      
+    </p>
+  </article>
+</div>
+      
+    
+    
+    
+<nav class="pagination">
+  
+  <ul>
+    <li>
+      <a href = "#" class="disabled" aria-hidden="true">Previous</a>
+    </li>
+
+    
+      <li><a href="/category/data-visualization-thoughts/"  class = "disabled current" >1</a></li>
+    
+      <li><a href="/category/data-visualization-thoughts/page/2/" >2</a></li>
+    
+      <li><a href="/category/data-visualization-thoughts/page/3/" >3</a></li>
+    
+
+    <li>
+      <a href="/category/data-visualization-thoughts/page/2/">Next</a>
+    </li>
+  </ul>
+</nav>
+
+
+  </div>
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://twitter.com/carlvlewis"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+    
+      <li><a href="http://github.com/carlvlewis"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 @carlvlewis. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
