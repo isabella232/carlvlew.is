@@ -1,6 +1,6 @@
 ---
-title: "Documentary: “Come to the Fountain: Homelessness in Macon, Ga.”"
-excerpt: "For a city with a modest population of around 100,000"
+title: "Documentary: “Sugar Rush Candy Man of The Bronx”"
+excerpt: "A man with a mission."
 date: 2012-03-31
 tags: 
   - "MULTIMEDIA"
