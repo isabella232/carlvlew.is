@@ -1,0 +1,898 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.5.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Overlaying a bubble chart onto a google map - carlvlew.is</title>
+
+
+
+
+<meta name="description" content="Others may hate, but I’m a big fan of using bubbles to display data. When implemented correctly (i.e. scaled in terms of area instead of diameter), bubbles can be an aesthetically appealing and concise way to represent the value of data points in an inherently visual format. Bubbles are even more useful when they include interactivity, with events like mouseover and zoom allowing users to drill down and compare similar-sized bubbles more easily than they can in static graphics. So, when I was recently working on a class project on autism diagnoses in New York City, I decided to use bubbles to represent the percentage of students with individualized education plans at all 1250 or so K-8 New York City schools.Almost by default, I turned to Google Maps JavaScript API V3, mainly because I’m quasi-familiar with its basic functions and event handlers (as I point out later in  this post, I didn’t realize that a nifty new service called CartoDB would have automated most of what I was trying to do, albeit without nearly the level of customization). Nonetheless, based on a tutorial from Karl Agius, as well as some infoWindow help from my data viz professor, Susan McGregor, I created the following interactive bubble map of NYC schools based upon the number of special needs, or IEP, students at each school. The larger the bubble, the greater percentage of special needs students a school has. Click here to see the map full-screen, or here to download a .zip of my source files for your own customization purposes.Each bubble on this map represents one of New York City’s approximately 1,250  K-8 public schools, including charters. The larger the bubble, the higher the percentage of students with individualized education plans (IEP). Click on a bubble to find out more about the school, or click anywhere within a district boundary to see an overall average IEP rate for the district. Zoom and pan to see other parts of the city.You’ll notice the opacity for the bubbles is set to 40 percent. This allows us to get a quick visual of the locations with the highest density of special needs students, given that those areas on the map will naturally be darker because they have multiple semi-opaque layers that overlap. Setting a low opacity also prevents overlapping bubbles from covering up one another. You’ll also notice that the map includes polygons for each school district, which you can click on to get an average IEP rate for the entire district. I decided against setting gradated fill colors for the school district shapes so as to avoid implying causation, as well as to lessen the visual clutter.*Preparing the dataTo create the map, I first had to download the underlying data from the New York City Department of Education database as a .csv, then import it into Excel to clean it up and leave only the relevant information. Although the dataset I had only included street addresses split into multiple columns, I was able to use the concatenate function in Excel to merge the street, city, state and zip columns to get a full street address. From there, I used my favorite batch geocoding service to convert the addresses into geographic coordinates that the Google Maps API can read. Check out my resulting .csv file here for an example. Then I imported the .csv into a Google Spreadsheet, and pasted the resulting spreadsheet’s URL into dataSourceURL field in the JavaScript of my main index.html file. Here’s how that looked in my code:var dataSourceUrl = &quot;https://docs.google.com/spreadsheet/ccc?key=0Au4D8Alccn4xdHNJdXJmeTdYcEtpRXE1QXRucWtEN3c&quot;;var onlyInfoWindow;google.load(&quot;visualization&quot;, &quot;1&quot;);google.load(&quot;maps&quot;, &quot;3&quot;, {other_params:&quot;sensor=false&quot;});google.setOnLoadCallback(getData);Drawing the bubblesUsing the ‘Circle’ marker style from the Google Maps JavaScript V3 API, I set each row in the spreadsheet to draw a bubble whose size corresponded to its value. It works by calling up the ‘size’ column in my spreadsheet, which contains the IEP data I want to display, and then drawing an overlay of bubbles based upon those values. Credit again to Karl Agius for helping me figure out this part of the script.// This first array is where you can change the size and styling of the bubbles.function Bubble(data, options) {    this.data = data;    if (options)        this.options = options    else        this.options = {            radiusForPercentage:1000,            text:{                visible:false,                minimumZoom:13,                maximumZoom:15            },            bubble:{                fill:{color:&quot;#709ED9&quot;, opacity:0.6},                stroke:{color:&quot;#709ED9&quot;, weight:1, opacity:0.3}            }        };    this.totalSize = this.getTotalSize(this.data);}Bubble.prototype = new google.maps.OverlayView;Bubble.prototype.onAdd = function() {    for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)        this.drawBubble(this.data, this.options, row);}Bubble.prototype.draw = function() {    if (this.options.text.visible)        for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)            this.drawText(this.data, this.options, row);}Bubble.prototype.getTotalSize = function(data) {    var totalSize = 0;    for (var row = 0; row &lt; data.getNumberOfRows(); row++)        totalSize += data.getValue(row, 1);    return totalSize;}Bubble.prototype.drawBubble = function(data, options, row) {    var sizeOfLocation = data.getValue(row, 1);    var percentageOfTotal = (sizeOfLocation / this.totalSize) * 100;    var radiusForLocation = options.radiusForPercentage * percentageOfTotal;    var marker = new google.maps.Circle({        center: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3)),        fillColor:options.bubble.fill.color,        fillOpacity:options.bubble.fill.opacity,        strokeColour:options.bubble.stroke.color,        strokeWeight:options.bubble.stroke.weight,        strokeOpacity:options.bubble.stroke.opacity,        radius:radiusForLocation });    // This last command actually places the Circle markers we just made on the map.    marker.setMap(this.getMap());You can change the default size of the bubbles with the radiusForPercentage value, and set the colors using the fill and stroke fields. You can also set a minimum and maximum zoom so that users can only see the part of the map you want them to see.Adding interactivityNext, to make the bubbles clickable, I added an on-click event listener that set each bubble marker to fetch the corresponding data from my Google spreadsheet and add it to an infoWindow. Here’s what that looked like:var contentString = &#39;School Name&#39; + data.getValue(row, 0) + &#39;Percent IEP students:&#39;+sizeOfLocation+&#39;Percent free-lunch:&#39; + data.getValue(row, 4) + &#39;&#39;;var infowindow = new google.maps.InfoWindow({content: contentString,position: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3))});google.maps.event.addListener(marker, &#39;click&#39;, function() {if(onlyInfoWindow != null){onlyInfoWindow.close();}infowindow.open(this.getMap());onlyInfoWindow = infowindow;});As you can see, I referenced each value in my spreadsheet by adding in its row number. Later, I went back in and added another row of data that displayed free-lunch statistics as well, which is why you see a reference to row 4.Overlaying the school district polygonsTo place the school polygons onto the map, I added a new overlay that pointed to a Google Fusions table containing the KML geographic boundaries. This is what that looked like:var schoolDistricts = new google.maps.LatLng(41.850033, -87.6500523);var layer = new google.maps.FusionTablesLayer({  query: {    select: &#39;geometry&#39;,    from: &#39;3621394&#39;  },  styles: [{  polygonOptions: {    fillColor: &quot;#FAFBFF&quot;,    fillOpacity: 0    }  }  ]}  );layer.setMap(map);  }The ‘from’ field should correspond to your Fusions Table’s six-digit ID, and the ‘select’ field should reference the column in your table that contains the KML geographic data.A simpler new tool to do roughly the same thingUltimately, however, it may have been easier to use the WYSIWYG editor from CartoDB, a premium mapping service with a front-end interface similar to Google Fusions Tables except that it allows you to draw bubbles without having to dig into the API. See what happened when I uploaded my spreadsheet to CartoDB and set similar style attributes:Which map is better? Personally I think the hand-coded Google Maps API version is better in terms of aesthetics and usability. But was it worth the extra effort? You tell me.*Jennifer LaFleur, ProPublica’s director of computer-assisted reporting, later pointed out to me that I could easily add a gradated fill for each of the school district polygons based upon poverty levels, provided that I pick the right color-scheme to complement the blue bubbles. I guess I was just a bit leery from a design standpoint about what one color on top of another would look like.">
+
+
+
+
+<meta name="author" content="Carl V. Lewis">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="carlvlew.is">
+<meta property="og:title" content="Overlaying a bubble chart onto a Google map">
+
+
+
+
+  <meta property="og:description" content="Others may hate, but I’m a big fan of using bubbles to display data. When implemented correctly (i.e. scaled in terms of area instead of diameter), bubbles can be an aesthetically appealing and concise way to represent the value of data points in an inherently visual format. Bubbles are even more useful when they include interactivity, with events like mouseover and zoom allowing users to drill down and compare similar-sized bubbles more easily than they can in static graphics. So, when I was recently working on a class project on autism diagnoses in New York City, I decided to use bubbles to represent the percentage of students with individualized education plans at all 1250 or so K-8 New York City schools.Almost by default, I turned to Google Maps JavaScript API V3, mainly because I’m quasi-familiar with its basic functions and event handlers (as I point out later in  this post, I didn’t realize that a nifty new service called CartoDB would have automated most of what I was trying to do, albeit without nearly the level of customization). Nonetheless, based on a tutorial from Karl Agius, as well as some infoWindow help from my data viz professor, Susan McGregor, I created the following interactive bubble map of NYC schools based upon the number of special needs, or IEP, students at each school. The larger the bubble, the greater percentage of special needs students a school has. Click here to see the map full-screen, or here to download a .zip of my source files for your own customization purposes.Each bubble on this map represents one of New York City’s approximately 1,250  K-8 public schools, including charters. The larger the bubble, the higher the percentage of students with individualized education plans (IEP). Click on a bubble to find out more about the school, or click anywhere within a district boundary to see an overall average IEP rate for the district. Zoom and pan to see other parts of the city.You’ll notice the opacity for the bubbles is set to 40 percent. This allows us to get a quick visual of the locations with the highest density of special needs students, given that those areas on the map will naturally be darker because they have multiple semi-opaque layers that overlap. Setting a low opacity also prevents overlapping bubbles from covering up one another. You’ll also notice that the map includes polygons for each school district, which you can click on to get an average IEP rate for the entire district. I decided against setting gradated fill colors for the school district shapes so as to avoid implying causation, as well as to lessen the visual clutter.*Preparing the dataTo create the map, I first had to download the underlying data from the New York City Department of Education database as a .csv, then import it into Excel to clean it up and leave only the relevant information. Although the dataset I had only included street addresses split into multiple columns, I was able to use the concatenate function in Excel to merge the street, city, state and zip columns to get a full street address. From there, I used my favorite batch geocoding service to convert the addresses into geographic coordinates that the Google Maps API can read. Check out my resulting .csv file here for an example. Then I imported the .csv into a Google Spreadsheet, and pasted the resulting spreadsheet’s URL into dataSourceURL field in the JavaScript of my main index.html file. Here’s how that looked in my code:var dataSourceUrl = &quot;https://docs.google.com/spreadsheet/ccc?key=0Au4D8Alccn4xdHNJdXJmeTdYcEtpRXE1QXRucWtEN3c&quot;;var onlyInfoWindow;google.load(&quot;visualization&quot;, &quot;1&quot;);google.load(&quot;maps&quot;, &quot;3&quot;, {other_params:&quot;sensor=false&quot;});google.setOnLoadCallback(getData);Drawing the bubblesUsing the ‘Circle’ marker style from the Google Maps JavaScript V3 API, I set each row in the spreadsheet to draw a bubble whose size corresponded to its value. It works by calling up the ‘size’ column in my spreadsheet, which contains the IEP data I want to display, and then drawing an overlay of bubbles based upon those values. Credit again to Karl Agius for helping me figure out this part of the script.// This first array is where you can change the size and styling of the bubbles.function Bubble(data, options) {    this.data = data;    if (options)        this.options = options    else        this.options = {            radiusForPercentage:1000,            text:{                visible:false,                minimumZoom:13,                maximumZoom:15            },            bubble:{                fill:{color:&quot;#709ED9&quot;, opacity:0.6},                stroke:{color:&quot;#709ED9&quot;, weight:1, opacity:0.3}            }        };    this.totalSize = this.getTotalSize(this.data);}Bubble.prototype = new google.maps.OverlayView;Bubble.prototype.onAdd = function() {    for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)        this.drawBubble(this.data, this.options, row);}Bubble.prototype.draw = function() {    if (this.options.text.visible)        for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)            this.drawText(this.data, this.options, row);}Bubble.prototype.getTotalSize = function(data) {    var totalSize = 0;    for (var row = 0; row &lt; data.getNumberOfRows(); row++)        totalSize += data.getValue(row, 1);    return totalSize;}Bubble.prototype.drawBubble = function(data, options, row) {    var sizeOfLocation = data.getValue(row, 1);    var percentageOfTotal = (sizeOfLocation / this.totalSize) * 100;    var radiusForLocation = options.radiusForPercentage * percentageOfTotal;    var marker = new google.maps.Circle({        center: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3)),        fillColor:options.bubble.fill.color,        fillOpacity:options.bubble.fill.opacity,        strokeColour:options.bubble.stroke.color,        strokeWeight:options.bubble.stroke.weight,        strokeOpacity:options.bubble.stroke.opacity,        radius:radiusForLocation });    // This last command actually places the Circle markers we just made on the map.    marker.setMap(this.getMap());You can change the default size of the bubbles with the radiusForPercentage value, and set the colors using the fill and stroke fields. You can also set a minimum and maximum zoom so that users can only see the part of the map you want them to see.Adding interactivityNext, to make the bubbles clickable, I added an on-click event listener that set each bubble marker to fetch the corresponding data from my Google spreadsheet and add it to an infoWindow. Here’s what that looked like:var contentString = &#39;School Name&#39; + data.getValue(row, 0) + &#39;Percent IEP students:&#39;+sizeOfLocation+&#39;Percent free-lunch:&#39; + data.getValue(row, 4) + &#39;&#39;;var infowindow = new google.maps.InfoWindow({content: contentString,position: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3))});google.maps.event.addListener(marker, &#39;click&#39;, function() {if(onlyInfoWindow != null){onlyInfoWindow.close();}infowindow.open(this.getMap());onlyInfoWindow = infowindow;});As you can see, I referenced each value in my spreadsheet by adding in its row number. Later, I went back in and added another row of data that displayed free-lunch statistics as well, which is why you see a reference to row 4.Overlaying the school district polygonsTo place the school polygons onto the map, I added a new overlay that pointed to a Google Fusions table containing the KML geographic boundaries. This is what that looked like:var schoolDistricts = new google.maps.LatLng(41.850033, -87.6500523);var layer = new google.maps.FusionTablesLayer({  query: {    select: &#39;geometry&#39;,    from: &#39;3621394&#39;  },  styles: [{  polygonOptions: {    fillColor: &quot;#FAFBFF&quot;,    fillOpacity: 0    }  }  ]}  );layer.setMap(map);  }The ‘from’ field should correspond to your Fusions Table’s six-digit ID, and the ‘select’ field should reference the column in your table that contains the KML geographic data.A simpler new tool to do roughly the same thingUltimately, however, it may have been easier to use the WYSIWYG editor from CartoDB, a premium mapping service with a front-end interface similar to Google Fusions Tables except that it allows you to draw bubbles without having to dig into the API. See what happened when I uploaded my spreadsheet to CartoDB and set similar style attributes:Which map is better? Personally I think the hand-coded Google Maps API version is better in terms of aesthetics and usability. But was it worth the extra effort? You tell me.*Jennifer LaFleur, ProPublica’s director of computer-assisted reporting, later pointed out to me that I could easily add a gradated fill for each of the school district polygons based upon poverty levels, provided that I pick the right color-scheme to complement the blue bubbles. I guess I was just a bit leery from a design standpoint about what one color on top of another would look like.">
+
+
+
+  <meta name="twitter:site" content="@carlvlewis">
+  <meta name="twitter:title" content="Overlaying a bubble chart onto a Google map">
+  <meta name="twitter:description" content="Others may hate, but I’m a big fan of using bubbles to display data. When implemented correctly (i.e. scaled in terms of area instead of diameter), bubbles can be an aesthetically appealing and concise way to represent the value of data points in an inherently visual format. Bubbles are even more useful when they include interactivity, with events like mouseover and zoom allowing users to drill down and compare similar-sized bubbles more easily than they can in static graphics. So, when I was recently working on a class project on autism diagnoses in New York City, I decided to use bubbles to represent the percentage of students with individualized education plans at all 1250 or so K-8 New York City schools.Almost by default, I turned to Google Maps JavaScript API V3, mainly because I’m quasi-familiar with its basic functions and event handlers (as I point out later in  this post, I didn’t realize that a nifty new service called CartoDB would have automated most of what I was trying to do, albeit without nearly the level of customization). Nonetheless, based on a tutorial from Karl Agius, as well as some infoWindow help from my data viz professor, Susan McGregor, I created the following interactive bubble map of NYC schools based upon the number of special needs, or IEP, students at each school. The larger the bubble, the greater percentage of special needs students a school has. Click here to see the map full-screen, or here to download a .zip of my source files for your own customization purposes.Each bubble on this map represents one of New York City’s approximately 1,250  K-8 public schools, including charters. The larger the bubble, the higher the percentage of students with individualized education plans (IEP). Click on a bubble to find out more about the school, or click anywhere within a district boundary to see an overall average IEP rate for the district. Zoom and pan to see other parts of the city.You’ll notice the opacity for the bubbles is set to 40 percent. This allows us to get a quick visual of the locations with the highest density of special needs students, given that those areas on the map will naturally be darker because they have multiple semi-opaque layers that overlap. Setting a low opacity also prevents overlapping bubbles from covering up one another. You’ll also notice that the map includes polygons for each school district, which you can click on to get an average IEP rate for the entire district. I decided against setting gradated fill colors for the school district shapes so as to avoid implying causation, as well as to lessen the visual clutter.*Preparing the dataTo create the map, I first had to download the underlying data from the New York City Department of Education database as a .csv, then import it into Excel to clean it up and leave only the relevant information. Although the dataset I had only included street addresses split into multiple columns, I was able to use the concatenate function in Excel to merge the street, city, state and zip columns to get a full street address. From there, I used my favorite batch geocoding service to convert the addresses into geographic coordinates that the Google Maps API can read. Check out my resulting .csv file here for an example. Then I imported the .csv into a Google Spreadsheet, and pasted the resulting spreadsheet’s URL into dataSourceURL field in the JavaScript of my main index.html file. Here’s how that looked in my code:var dataSourceUrl = &quot;https://docs.google.com/spreadsheet/ccc?key=0Au4D8Alccn4xdHNJdXJmeTdYcEtpRXE1QXRucWtEN3c&quot;;var onlyInfoWindow;google.load(&quot;visualization&quot;, &quot;1&quot;);google.load(&quot;maps&quot;, &quot;3&quot;, {other_params:&quot;sensor=false&quot;});google.setOnLoadCallback(getData);Drawing the bubblesUsing the ‘Circle’ marker style from the Google Maps JavaScript V3 API, I set each row in the spreadsheet to draw a bubble whose size corresponded to its value. It works by calling up the ‘size’ column in my spreadsheet, which contains the IEP data I want to display, and then drawing an overlay of bubbles based upon those values. Credit again to Karl Agius for helping me figure out this part of the script.// This first array is where you can change the size and styling of the bubbles.function Bubble(data, options) {    this.data = data;    if (options)        this.options = options    else        this.options = {            radiusForPercentage:1000,            text:{                visible:false,                minimumZoom:13,                maximumZoom:15            },            bubble:{                fill:{color:&quot;#709ED9&quot;, opacity:0.6},                stroke:{color:&quot;#709ED9&quot;, weight:1, opacity:0.3}            }        };    this.totalSize = this.getTotalSize(this.data);}Bubble.prototype = new google.maps.OverlayView;Bubble.prototype.onAdd = function() {    for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)        this.drawBubble(this.data, this.options, row);}Bubble.prototype.draw = function() {    if (this.options.text.visible)        for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)            this.drawText(this.data, this.options, row);}Bubble.prototype.getTotalSize = function(data) {    var totalSize = 0;    for (var row = 0; row &lt; data.getNumberOfRows(); row++)        totalSize += data.getValue(row, 1);    return totalSize;}Bubble.prototype.drawBubble = function(data, options, row) {    var sizeOfLocation = data.getValue(row, 1);    var percentageOfTotal = (sizeOfLocation / this.totalSize) * 100;    var radiusForLocation = options.radiusForPercentage * percentageOfTotal;    var marker = new google.maps.Circle({        center: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3)),        fillColor:options.bubble.fill.color,        fillOpacity:options.bubble.fill.opacity,        strokeColour:options.bubble.stroke.color,        strokeWeight:options.bubble.stroke.weight,        strokeOpacity:options.bubble.stroke.opacity,        radius:radiusForLocation });    // This last command actually places the Circle markers we just made on the map.    marker.setMap(this.getMap());You can change the default size of the bubbles with the radiusForPercentage value, and set the colors using the fill and stroke fields. You can also set a minimum and maximum zoom so that users can only see the part of the map you want them to see.Adding interactivityNext, to make the bubbles clickable, I added an on-click event listener that set each bubble marker to fetch the corresponding data from my Google spreadsheet and add it to an infoWindow. Here’s what that looked like:var contentString = &#39;School Name&#39; + data.getValue(row, 0) + &#39;Percent IEP students:&#39;+sizeOfLocation+&#39;Percent free-lunch:&#39; + data.getValue(row, 4) + &#39;&#39;;var infowindow = new google.maps.InfoWindow({content: contentString,position: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3))});google.maps.event.addListener(marker, &#39;click&#39;, function() {if(onlyInfoWindow != null){onlyInfoWindow.close();}infowindow.open(this.getMap());onlyInfoWindow = infowindow;});As you can see, I referenced each value in my spreadsheet by adding in its row number. Later, I went back in and added another row of data that displayed free-lunch statistics as well, which is why you see a reference to row 4.Overlaying the school district polygonsTo place the school polygons onto the map, I added a new overlay that pointed to a Google Fusions table containing the KML geographic boundaries. This is what that looked like:var schoolDistricts = new google.maps.LatLng(41.850033, -87.6500523);var layer = new google.maps.FusionTablesLayer({  query: {    select: &#39;geometry&#39;,    from: &#39;3621394&#39;  },  styles: [{  polygonOptions: {    fillColor: &quot;#FAFBFF&quot;,    fillOpacity: 0    }  }  ]}  );layer.setMap(map);  }The ‘from’ field should correspond to your Fusions Table’s six-digit ID, and the ‘select’ field should reference the column in your table that contains the KML geographic data.A simpler new tool to do roughly the same thingUltimately, however, it may have been easier to use the WYSIWYG editor from CartoDB, a premium mapping service with a front-end interface similar to Google Fusions Tables except that it allows you to draw bubbles without having to dig into the API. See what happened when I uploaded my spreadsheet to CartoDB and set similar style attributes:Which map is better? Personally I think the hand-coded Google Maps API version is better in terms of aesthetics and usability. But was it worth the extra effort? You tell me.*Jennifer LaFleur, ProPublica’s director of computer-assisted reporting, later pointed out to me that I could easily add a gradated fill for each of the school district polygons based upon poverty levels, provided that I pick the right color-scheme to complement the blue bubbles. I guess I was just a bit leery from a design standpoint about what one color on top of another would look like.">
+  <meta name="twitter:url" content="/tutorial-making-a-geographical-bubble-map/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@Carl V. Lewis">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2012-05-04T11:59:08-04:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "@carlvlewis",
+      "url" : null,
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="carlvlew.is Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+    <!-- start custom head snippets -->
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7917556/6301972/css/fonts.css" />
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-102583563-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-102583563-1');
+</script>
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">carlvlew.is</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/reporting/">News Writing</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/portfolio/">Portfolio</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/testimonials/">Testimonials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/resources/">Resources</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/research/">Research</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://cv.carlvlewis.net">CV</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="/other-projects/">Other Projects</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://cvlassets.s3.amazonaws.com/1697569.jpg" alt="Carl V. Lewis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Carl V. Lewis</h3>
+    
+      <p class="author__bio" itemprop="description">
+        data visualization, civic-tech, digital humanities, media futurism.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">38.627003, -90.1999</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:hello@carlvlew.is">
+            <meta itemprop="email" content="hello@carlvlew.is" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://keybase.io/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-key" aria-hidden="true"></i> Keybase
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://github.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://twitter.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://plus.google.com/+carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-google-plus-square" aria-hidden="true"></i> Google+
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://quora.com/profile/carl-v-lewis-1" itemprop="sameAs">
+            <i class="fa fa-fw fa-quora" aria-hidden="true"></i> Quora
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://opendata.stackexchange.com/users/14970/carl-v-lewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-stack-exchange" aria-hidden="true"></i> StackExchange
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.codepen.io/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-codepen" aria-hidden="true"></i> Codepen
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://instagram.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-instagram" aria-hidden="true"></i> Instagram
+          </a>
+        </li>
+      
+
+      
+
+      
+
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.pinterest.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-pinterest" aria-hidden="true"></i> Pinterest
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+    <a href="https://bl.ocks.org/carlvlewis" itemprop="sameAs">
+      <i class="fa fa-fw fa-cubes" aria-hidden="true"></i> Bl.ocks
+    </a></li>  
+
+<li>
+    <a href="https://meetup.com/opensavannah" itemprop="sameAs">
+      <i class="fa fa-fw fa-meetup" aria-hidden="true"></i> Meetup
+    </a></li>
+  <li>
+    <a href="https://slideshare.com/opensavannah" itemprop="sameAs">
+      <i class="fa fa-fw fa-slideshare" aria-hidden="true"></i> Slideshare
+    </a></li>
+<li>
+    <a href="https://medium.com/@carlvlewis" itemprop="sameAs">
+      <i class="fa fa-fw fa-medium" aria-hidden="true"></i> Medium
+    </a></li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Overlaying a bubble chart onto a Google map">
+    <meta itemprop="description" content="Others may hate, but I’m a big fan of using bubbles to display data. When implemented correctly (i.e. scaled in terms of area instead of diameter), bubbles can be an aesthetically appealing and concise way to represent the value of data points in an inherently visual format. Bubbles are even more useful when they include interactivity, with events like mouseover and zoom allowing users to drill down and compare similar-sized bubbles more easily than they can in static graphics. So, when I was recently working on a class project on autism diagnoses in New York City, I decided to use bubbles to represent the percentage of students with individualized education plans at all 1250 or so K-8 New York City schools.Almost by default, I turned to Google Maps JavaScript API V3, mainly because I’m quasi-familiar with its basic functions and event handlers (as I point out later in  this post, I didn’t realize that a nifty new service called CartoDB would have automated most of what I was trying to do, albeit without nearly the level of customization). Nonetheless, based on a tutorial from Karl Agius, as well as some infoWindow help from my data viz professor, Susan McGregor, I created the following interactive bubble map of NYC schools based upon the number of special needs, or IEP, students at each school. The larger the bubble, the greater percentage of special needs students a school has. Click here to see the map full-screen, or here to download a .zip of my source files for your own customization purposes.Each bubble on this map represents one of New York City’s approximately 1,250  K-8 public schools, including charters. The larger the bubble, the higher the percentage of students with individualized education plans (IEP). Click on a bubble to find out more about the school, or click anywhere within a district boundary to see an overall average IEP rate for the district. Zoom and pan to see other parts of the city.You’ll notice the opacity for the bubbles is set to 40 percent. This allows us to get a quick visual of the locations with the highest density of special needs students, given that those areas on the map will naturally be darker because they have multiple semi-opaque layers that overlap. Setting a low opacity also prevents overlapping bubbles from covering up one another. You’ll also notice that the map includes polygons for each school district, which you can click on to get an average IEP rate for the entire district. I decided against setting gradated fill colors for the school district shapes so as to avoid implying causation, as well as to lessen the visual clutter.*Preparing the dataTo create the map, I first had to download the underlying data from the New York City Department of Education database as a .csv, then import it into Excel to clean it up and leave only the relevant information. Although the dataset I had only included street addresses split into multiple columns, I was able to use the concatenate function in Excel to merge the street, city, state and zip columns to get a full street address. From there, I used my favorite batch geocoding service to convert the addresses into geographic coordinates that the Google Maps API can read. Check out my resulting .csv file here for an example. Then I imported the .csv into a Google Spreadsheet, and pasted the resulting spreadsheet’s URL into dataSourceURL field in the JavaScript of my main index.html file. Here’s how that looked in my code:var dataSourceUrl = &quot;https://docs.google.com/spreadsheet/ccc?key=0Au4D8Alccn4xdHNJdXJmeTdYcEtpRXE1QXRucWtEN3c&quot;;var onlyInfoWindow;google.load(&quot;visualization&quot;, &quot;1&quot;);google.load(&quot;maps&quot;, &quot;3&quot;, {other_params:&quot;sensor=false&quot;});google.setOnLoadCallback(getData);Drawing the bubblesUsing the ‘Circle’ marker style from the Google Maps JavaScript V3 API, I set each row in the spreadsheet to draw a bubble whose size corresponded to its value. It works by calling up the ‘size’ column in my spreadsheet, which contains the IEP data I want to display, and then drawing an overlay of bubbles based upon those values. Credit again to Karl Agius for helping me figure out this part of the script.// This first array is where you can change the size and styling of the bubbles.function Bubble(data, options) {    this.data = data;    if (options)        this.options = options    else        this.options = {            radiusForPercentage:1000,            text:{                visible:false,                minimumZoom:13,                maximumZoom:15            },            bubble:{                fill:{color:&quot;#709ED9&quot;, opacity:0.6},                stroke:{color:&quot;#709ED9&quot;, weight:1, opacity:0.3}            }        };    this.totalSize = this.getTotalSize(this.data);}Bubble.prototype = new google.maps.OverlayView;Bubble.prototype.onAdd = function() {    for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)        this.drawBubble(this.data, this.options, row);}Bubble.prototype.draw = function() {    if (this.options.text.visible)        for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)            this.drawText(this.data, this.options, row);}Bubble.prototype.getTotalSize = function(data) {    var totalSize = 0;    for (var row = 0; row &lt; data.getNumberOfRows(); row++)        totalSize += data.getValue(row, 1);    return totalSize;}Bubble.prototype.drawBubble = function(data, options, row) {    var sizeOfLocation = data.getValue(row, 1);    var percentageOfTotal = (sizeOfLocation / this.totalSize) * 100;    var radiusForLocation = options.radiusForPercentage * percentageOfTotal;    var marker = new google.maps.Circle({        center: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3)),        fillColor:options.bubble.fill.color,        fillOpacity:options.bubble.fill.opacity,        strokeColour:options.bubble.stroke.color,        strokeWeight:options.bubble.stroke.weight,        strokeOpacity:options.bubble.stroke.opacity,        radius:radiusForLocation });    // This last command actually places the Circle markers we just made on the map.    marker.setMap(this.getMap());You can change the default size of the bubbles with the radiusForPercentage value, and set the colors using the fill and stroke fields. You can also set a minimum and maximum zoom so that users can only see the part of the map you want them to see.Adding interactivityNext, to make the bubbles clickable, I added an on-click event listener that set each bubble marker to fetch the corresponding data from my Google spreadsheet and add it to an infoWindow. Here’s what that looked like:var contentString = &#39;School Name&#39; + data.getValue(row, 0) + &#39;Percent IEP students:&#39;+sizeOfLocation+&#39;Percent free-lunch:&#39; + data.getValue(row, 4) + &#39;&#39;;var infowindow = new google.maps.InfoWindow({content: contentString,position: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3))});google.maps.event.addListener(marker, &#39;click&#39;, function() {if(onlyInfoWindow != null){onlyInfoWindow.close();}infowindow.open(this.getMap());onlyInfoWindow = infowindow;});As you can see, I referenced each value in my spreadsheet by adding in its row number. Later, I went back in and added another row of data that displayed free-lunch statistics as well, which is why you see a reference to row 4.Overlaying the school district polygonsTo place the school polygons onto the map, I added a new overlay that pointed to a Google Fusions table containing the KML geographic boundaries. This is what that looked like:var schoolDistricts = new google.maps.LatLng(41.850033, -87.6500523);var layer = new google.maps.FusionTablesLayer({  query: {    select: &#39;geometry&#39;,    from: &#39;3621394&#39;  },  styles: [{  polygonOptions: {    fillColor: &quot;#FAFBFF&quot;,    fillOpacity: 0    }  }  ]}  );layer.setMap(map);  }The ‘from’ field should correspond to your Fusions Table’s six-digit ID, and the ‘select’ field should reference the column in your table that contains the KML geographic data.A simpler new tool to do roughly the same thingUltimately, however, it may have been easier to use the WYSIWYG editor from CartoDB, a premium mapping service with a front-end interface similar to Google Fusions Tables except that it allows you to draw bubbles without having to dig into the API. See what happened when I uploaded my spreadsheet to CartoDB and set similar style attributes:Which map is better? Personally I think the hand-coded Google Maps API version is better in terms of aesthetics and usability. But was it worth the extra effort? You tell me.*Jennifer LaFleur, ProPublica’s director of computer-assisted reporting, later pointed out to me that I could easily add a gradated fill for each of the school district polygons based upon poverty levels, provided that I pick the right color-scheme to complement the blue bubbles. I guess I was just a bit leery from a design standpoint about what one color on top of another would look like.">
+    <meta itemprop="datePublished" content="May 04, 2012">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Overlaying a bubble chart onto a Google map
+</h1><p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  25 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>May 04, 2012</span>,
+  
+  
+    by <span>Carl V. Lewis</span>
+  
+</p></header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Others may <a href="http://junkcharts.typepad.com/junk_charts/2009/01/popping-the-bubble-so-to-speak.html">hate</a>, but I’m a big fan of using bubbles to display data. When implemented correctly (i.e. scaled in terms of area instead of diameter), bubbles can be an aesthetically appealing and concise way to represent the value of data points in an inherently visual format. Bubbles are even more useful when they include interactivity, with events like mouseover and zoom allowing users to drill down and compare similar-sized bubbles more easily than they can in static graphics. So, when I was recently working on a <a href="http://carlvlewis.net/autismdataviz/WebAppHome.html">class project</a> on autism diagnoses in New York City, I decided to use bubbles to represent the percentage of students with individualized education plans at all 1250 or so K-8 New York City schools.<!--more--></p>
+
+<p>Almost by default, I turned to Google Maps JavaScript API V3, mainly because I’m quasi-familiar with its basic functions and event handlers (as I point out later in  this post, I didn’t realize that a nifty new service called <a href="http://cartodb.com">CartoDB</a> would have automated most of what I was trying to do, albeit without nearly the level of customization). Nonetheless, based on a <a href="http://karlagius.com/2011/03/26/visualizing-data-with-google-maps/">tutorial</a> from Karl Agius, as well as some infoWindow help from my data viz professor, <a href="http://susanemcgregor.com">Susan McGregor</a>, I created the following interactive bubble map of NYC schools based upon the number of special needs, or IEP, students at each school. The larger the bubble, the greater percentage of special needs students a school has. Click <a href="http://carlvlewis.net/mapTest/">here</a> to see the map full-screen, or <a href="http://carlvlewis.net/bubbleMap.zip">here</a> to download a .zip of my source files for your own customization purposes.</p>
+
+<iframe src="http://carlvlewis.net/mapTest/" frameborder="0" width="550" height="330"></iframe>
+
+<p><em>Each bubble on this map represents one of New York City’s approximately 1,250  K-8 public schools, including charters. The larger the bubble, the higher the percentage of students with individualized education plans (IEP). Click on a bubble to find out more about the school, or click anywhere within a district boundary to see an overall average IEP rate for the district. Zoom and pan to see other parts of the city.</em></p>
+
+<p>You’ll notice the opacity for the bubbles is set to 40 percent. This allows us to get a quick visual of the locations with the highest density of special needs students, given that those areas on the map will naturally be darker because they have multiple semi-opaque layers that overlap. Setting a low opacity also prevents overlapping bubbles from covering up one another. You’ll also notice that the map includes polygons for each school district, which you can click on to get an average IEP rate for the entire district. I decided against setting gradated fill colors for the school district shapes so as to avoid implying causation, as well as to lessen the visual clutter.*</p>
+<h1>Preparing the data</h1>
+
+<p>To create the map, I first had to download the underlying data from the New York City Department of Education <a href="http://schools.nyc.gov/AboutUs/data/default.htm">database</a> as a .csv, then import it into Excel to clean it up and leave only the relevant information. Although the dataset I had only included street addresses split into multiple columns, I was able to use the <a href="http://office.microsoft.com/en-us/excel-help/concatenate-HP005209020.aspx">concatenate</a> function in Excel to merge the street, city, state and zip columns to get a full street address. From there, I used my <a href="http://www.findlatitudeandlongitude.com/batch-geocode/#.T6V0Op9Yvk0">favorite batch geocoding service</a> to convert the addresses into geographic coordinates that the Google Maps API can read. Check out my resulting .csv file <a href="http://carlvlewis.net/nycpubschools.csv">here</a> for an example. Then I imported the .csv into a Google Spreadsheet, and pasted the resulting spreadsheet’s URL into dataSourceURL field in the JavaScript of my main index.html file. Here’s how that looked in my code:</p>
+<pre name="code" class="javascript">
+var dataSourceUrl = "https://docs.google.com/spreadsheet/ccc?key=0Au4D8Alccn4xdHNJdXJmeTdYcEtpRXE1QXRucWtEN3c";
+var onlyInfoWindow;
+
+google.load("visualization", "1");
+google.load("maps", "3", {other_params:"sensor=false"});
+
+google.setOnLoadCallback(getData);
+</pre>
+<h1>Drawing the bubbles</h1>
+
+<p>Using the ‘Circle’ marker style from the <a href="https://developers.google.com/maps/documentation/javascript/">Google Maps JavaScript V3 API</a>, I set each row in the spreadsheet to draw a bubble whose size corresponded to its value. It works by calling up the ‘size’ column in my spreadsheet, which contains the IEP data I want to display, and then drawing an overlay of bubbles based upon those values. Credit again to Karl Agius for helping me figure out this part of the script.</p>
+<pre name="code" class="javascript">
+// This first array is where you can change the size and styling of the bubbles.
+function Bubble(data, options) {
+    this.data = data;
+    if (options)
+        this.options = options
+    else
+        this.options = {
+            radiusForPercentage:1000,
+            text:{
+                visible:false,
+                minimumZoom:13,
+                maximumZoom:15
+            },
+            bubble:{
+                fill:{color:"#709ED9", opacity:0.6},
+                stroke:{color:"#709ED9", weight:1, opacity:0.3}
+            }
+        };
+    this.totalSize = this.getTotalSize(this.data);
+}
+
+Bubble.prototype = new google.maps.OverlayView;
+
+Bubble.prototype.onAdd = function() {
+    for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)
+        this.drawBubble(this.data, this.options, row);
+}
+
+Bubble.prototype.draw = function() {
+    if (this.options.text.visible)
+        for (var row = 0; row &lt; this.data.getNumberOfRows(); row++)
+            this.drawText(this.data, this.options, row);
+}
+
+Bubble.prototype.getTotalSize = function(data) {
+    var totalSize = 0;
+
+    for (var row = 0; row &lt; data.getNumberOfRows(); row++)
+        totalSize += data.getValue(row, 1);
+
+    return totalSize;
+}
+
+Bubble.prototype.drawBubble = function(data, options, row) {
+
+    var sizeOfLocation = data.getValue(row, 1);
+    var percentageOfTotal = (sizeOfLocation / this.totalSize) * 100;
+
+    var radiusForLocation = options.radiusForPercentage * percentageOfTotal;
+
+    var marker = new google.maps.Circle({
+        center: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3)),
+        fillColor:options.bubble.fill.color,
+        fillOpacity:options.bubble.fill.opacity,
+        strokeColour:options.bubble.stroke.color,
+        strokeWeight:options.bubble.stroke.weight,
+        strokeOpacity:options.bubble.stroke.opacity,
+        radius:radiusForLocation
+ });
+    // This last command actually places the Circle markers we just made on the map.
+    marker.setMap(this.getMap());
+</pre>
+
+<p>You can change the default size of the bubbles with the radiusForPercentage value, and set the colors using the fill and stroke fields. You can also set a minimum and maximum zoom so that users can only see the part of the map you want them to see.</p>
+<h1>Adding interactivity</h1>
+
+<p>Next, to make the bubbles clickable, I added an on-click event listener that set each bubble marker to fetch the corresponding data from my Google spreadsheet and add it to an infoWindow. Here’s what that looked like:</p>
+<pre name="code" class="javascript">var contentString = '
+<div id="content">School Name' + data.getValue(row, 0) + 'Percent IEP students:'+sizeOfLocation+'Percent free-lunch:' + data.getValue(row, 4) + '</div>
+';
+
+var infowindow = new google.maps.InfoWindow({
+content: contentString,
+position: new google.maps.LatLng(data.getValue(row, 2), data.getValue(row, 3))
+
+});
+
+google.maps.event.addListener(marker, 'click', function() {
+if(onlyInfoWindow != null){
+onlyInfoWindow.close();
+}
+
+infowindow.open(this.getMap());
+onlyInfoWindow = infowindow;
+
+});</pre>
+
+<p>As you can see, I referenced each value in my spreadsheet by adding in its row number. Later, I went back in and added another row of data that displayed free-lunch statistics as well, which is why you see a reference to row 4.</p>
+<h1>Overlaying the school district polygons</h1>
+
+<p>To place the school polygons onto the map, I added a new overlay that pointed to a Google Fusions table containing the KML geographic boundaries. This is what that looked like:</p>
+<pre name="code" class="javascript">
+var schoolDistricts = new google.maps.LatLng(41.850033, -87.6500523);
+
+var layer = new google.maps.FusionTablesLayer({
+  query: {
+    select: 'geometry',
+    from: '3621394'
+  },
+  styles: [{
+  polygonOptions: {
+    fillColor: "#FAFBFF",
+    fillOpacity: 0
+    }
+  }
+  ]}
+  );
+
+layer.setMap(map);
+  }
+</pre>
+
+<p>The ‘from’ field should correspond to your Fusions Table’s six-digit ID, and the ‘select’ field should reference the column in your table that contains the KML geographic data.</p>
+<h1>A simpler new tool to do roughly the same thing</h1>
+
+<p>Ultimately, however, it may have been easier to use the WYSIWYG editor from <a href="http://cartodb.com">CartoDB</a>, a premium mapping service with a front-end interface similar to Google Fusions Tables except that it allows you to draw bubbles without having to dig into the API. See what happened when I uploaded my spreadsheet to CartoDB and set similar style attributes:</p>
+
+<iframe src="https://carlvlewis.cartodb.com/tables/nycpubschools/embed_map" width="550" height="330"></iframe>
+
+<p>Which map is better? Personally I think the hand-coded Google Maps API version is better in terms of aesthetics and usability. But was it worth the extra effort? You tell me.</p>
+
+<p><i>*<a href="http://www.propublica.org/site/author/jennifer_lafleur">Jennifer LaFleur</a>, ProPublica’s director of computer-assisted reporting, later pointed out to me that I could easily add a gradated fill for each of the school district polygons based upon poverty levels, provided that I pick the right color-scheme to complement the blue bubbles. I guess I was just a bit leery from a design standpoint about what one color on top of another would look like.</i></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+          <h4 class="page__meta-title"></h4>
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tag/bubble-charts" class="page__taxonomy-item" rel="tag">bubble charts</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tag/data-visualization" class="page__taxonomy-item" rel="tag">data visualization</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tag/google-maps-javascript-api-v3" class="page__taxonomy-item" rel="tag">google maps javascript api v3</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tag/mapping" class="page__taxonomy-item" rel="tag">mapping</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/category/blog" class="page__taxonomy-item" rel="tag">Blog</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/category/data-visualization-thoughts" class="page__taxonomy-item" rel="tag">Data Visualization Thoughts</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/category/data-visualization" class="page__taxonomy-item" rel="tag">Data Visualization</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-05-04T11:59:08-04:00">May 04, 2012</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=carlvlewis&text=Overlaying a bubble chart onto a Google map /tutorial-making-a-geographical-bubble-map/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/tutorial-making-a-geographical-bubble-map/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/tutorial-making-a-geographical-bubble-map/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/tutorial-making-a-geographical-bubble-map/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/why-calculus-matters-when-it-comes-to-data-driven-stories/" class="pagination--pager" title="Why calculus matters when it comes to data-driven stories
+">Previous</a>
+    
+    
+      <a href="/using-data-viz-to-make-a-wire-story-stand-out-from-the-pack/" class="pagination--pager" title="Using data-viz to make a wire story stand out from the pack
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <h4 class="page__comments-title">Leave a Comment</h4>
+    <section id="disqus_thread"></section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/zircle-for-ecosystem-mapping/" rel="permalink">Zircle For Ecosystem Mapping
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  less than 1 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>February 14, 2019</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        
+
+      
+    </p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/range-plots-to-visualize-opinion-gaps/" rel="permalink">Range plots ≠ dot plots
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  5 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>July 14, 2018</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        Range plots always have seemed a bit elitist to me. It’s one of those types of charts that people who want to show how skilled they are at visualization use.
+
+      
+    </p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/my-week-at-openvisconf-2017-in-tweets/" rel="permalink">My week at OpenVisConf 2017 in tweets – or, how I learned to stop hating and be okay with Tableau
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  13 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 26, 2017</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        I never thought I’d be so basic as to use Tableau Public, but it’s important to keep in mind the end goal of data visualization is insight, not technology or tools.
+
+      
+    </p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/civic-tech-as-new-journalism/" rel="permalink">Surveying the intersectional identity of the data journalism and civic-tech ecosystems
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  6 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 26, 2017</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        An explication of the interdisciplinary overlaps and differences between recent technology-driven social change movmements
+
+      
+    </p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://twitter.com/carlvlewis"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+    
+      <li><a href="http://github.com/carlvlewis"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 @carlvlewis. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+  	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  	var disqus_shortname = 'carlvlewis';
+
+  	/* * * DON'T EDIT BELOW THIS LINE * * */
+  	(function() {
+  		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  	})();
+
+  	/* * * DON'T EDIT BELOW THIS LINE * * */
+  	(function () {
+  		var s = document.createElement('script'); s.async = true;
+  		s.type = 'text/javascript';
+  		s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  		(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  	}());
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+  </body>
+</html>
