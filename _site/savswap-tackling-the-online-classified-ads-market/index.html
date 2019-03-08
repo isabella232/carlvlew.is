@@ -1,0 +1,755 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.5.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Savswap: tackling the online classified ads market - carlvlew.is</title>
+
+
+
+
+<meta name="description" content="Innovative, quality journalism takes money to produce. In the past, one of the largest revenue streams for news organizations has traditionally come from the classified ad market – a revenue stream that has all but dried up in today’s era of Craigslist and eBay. As an online editor, developer, manager and digital strategist for Savannah Morning News and savannahnow.com, a midsized news organization owned by Morris Publishing Group, I’ve sat through countless digital strategy meetings discussing how we as a company can win back a sliver of the online classified ad market, if for no other reason than audience growth, and with the longterm goal of driving revenue to support our company’s journalistic efforts.After brainstorming the issue with our V.P. of Audience Steve Yelvington, I identified a few key competitive advantages news organizations may still possess in the classified market:  Brand trust/recognition - Local news organizations still command considerable trust and boosterism in the markets they serve, adding an extra level of accountability to the classified ad process.  More secure social and physical verification - Unlike the major national competitors, we have the opportunity to verify users’ identities using social, email and physical address verification, further weeding out spammers and scammers.  Mobile-centric technologies - The massive scale of national competitors has so far prevented them from implementing a more seamless mobile user experience using HTML5/responsive design strategies.  Print marketing - Local news organizations can still leverage their considerable print marketing footprint to add extra value to the online classified ad experience, including setting up a secure drop-off and pick-up point for transactions so that users don’t have to go into the homes of strangers.  Social marketing - Strategic use of social channels tied in with existing larger social networks from local publishers targeting local buyers only. For example, each ad with an approved photo will be fed to an Instagram, Pinterest and Twitter account, which would serve as a second, highly visual storefront.The following weekend, I built SavSwap, a prototype for the sort of product I believe could harness local news organizations’ competitive advantages while at the same time creating a cleaner, more visual, simpler and more secure user experience than the national competitors have to offer. While still very much in beta state, SavSwap is now being proposed as a model for all Morris properties to adopt, and is slated for a local launch in the Savannah market this quarter.Launch beta version of project A few of the key features that make SavSwap stand apart from other classified ad attempts include:  A fully responsive, device-agnostic design that makes ad listing, browsing and submission easy and free from wherever you are, mo matter device you use.  Social media and email authentification of all users.  Premium listing options for paid members of savannahnow.com, including “Membership” badges and higher page prominence  An inherently visual experience, with infinite scroll as well as traditional taxonomy and keyword search.  Geolocation.  Confidential on-site messaging system, with the option for users to display further contact information if they so desire.Features that we plan to implement include:  Options for users to pay a small additional fee for their listing to appear in the print edition of Savannah Morning News.  A native iOS and Android mobile app (xCode template has already been built and is currently being prepared for submission to iTunes and Google Play stores).For a brief presentation outlining the SavSwap model, see my slideshare presentation here. To see SavSwap in its current development state, see here.">
+
+
+
+
+<meta name="author" content="Carl V. Lewis">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="carlvlew.is">
+<meta property="og:title" content="SavSwap: Tackling the online classified ads market">
+
+
+  <link rel="canonical" href="http://localhost:4000/savswap-tackling-the-online-classified-ads-market/">
+  <meta property="og:url" content="http://localhost:4000/savswap-tackling-the-online-classified-ads-market/">
+
+
+
+  <meta property="og:description" content="Innovative, quality journalism takes money to produce. In the past, one of the largest revenue streams for news organizations has traditionally come from the classified ad market – a revenue stream that has all but dried up in today’s era of Craigslist and eBay. As an online editor, developer, manager and digital strategist for Savannah Morning News and savannahnow.com, a midsized news organization owned by Morris Publishing Group, I’ve sat through countless digital strategy meetings discussing how we as a company can win back a sliver of the online classified ad market, if for no other reason than audience growth, and with the longterm goal of driving revenue to support our company’s journalistic efforts.After brainstorming the issue with our V.P. of Audience Steve Yelvington, I identified a few key competitive advantages news organizations may still possess in the classified market:  Brand trust/recognition - Local news organizations still command considerable trust and boosterism in the markets they serve, adding an extra level of accountability to the classified ad process.  More secure social and physical verification - Unlike the major national competitors, we have the opportunity to verify users’ identities using social, email and physical address verification, further weeding out spammers and scammers.  Mobile-centric technologies - The massive scale of national competitors has so far prevented them from implementing a more seamless mobile user experience using HTML5/responsive design strategies.  Print marketing - Local news organizations can still leverage their considerable print marketing footprint to add extra value to the online classified ad experience, including setting up a secure drop-off and pick-up point for transactions so that users don’t have to go into the homes of strangers.  Social marketing - Strategic use of social channels tied in with existing larger social networks from local publishers targeting local buyers only. For example, each ad with an approved photo will be fed to an Instagram, Pinterest and Twitter account, which would serve as a second, highly visual storefront.The following weekend, I built SavSwap, a prototype for the sort of product I believe could harness local news organizations’ competitive advantages while at the same time creating a cleaner, more visual, simpler and more secure user experience than the national competitors have to offer. While still very much in beta state, SavSwap is now being proposed as a model for all Morris properties to adopt, and is slated for a local launch in the Savannah market this quarter.Launch beta version of project A few of the key features that make SavSwap stand apart from other classified ad attempts include:  A fully responsive, device-agnostic design that makes ad listing, browsing and submission easy and free from wherever you are, mo matter device you use.  Social media and email authentification of all users.  Premium listing options for paid members of savannahnow.com, including “Membership” badges and higher page prominence  An inherently visual experience, with infinite scroll as well as traditional taxonomy and keyword search.  Geolocation.  Confidential on-site messaging system, with the option for users to display further contact information if they so desire.Features that we plan to implement include:  Options for users to pay a small additional fee for their listing to appear in the print edition of Savannah Morning News.  A native iOS and Android mobile app (xCode template has already been built and is currently being prepared for submission to iTunes and Google Play stores).For a brief presentation outlining the SavSwap model, see my slideshare presentation here. To see SavSwap in its current development state, see here.">
+
+
+
+  <meta name="twitter:site" content="@carlvlewis">
+  <meta name="twitter:title" content="SavSwap: Tackling the online classified ads market">
+  <meta name="twitter:description" content="Innovative, quality journalism takes money to produce. In the past, one of the largest revenue streams for news organizations has traditionally come from the classified ad market – a revenue stream that has all but dried up in today’s era of Craigslist and eBay. As an online editor, developer, manager and digital strategist for Savannah Morning News and savannahnow.com, a midsized news organization owned by Morris Publishing Group, I’ve sat through countless digital strategy meetings discussing how we as a company can win back a sliver of the online classified ad market, if for no other reason than audience growth, and with the longterm goal of driving revenue to support our company’s journalistic efforts.After brainstorming the issue with our V.P. of Audience Steve Yelvington, I identified a few key competitive advantages news organizations may still possess in the classified market:  Brand trust/recognition - Local news organizations still command considerable trust and boosterism in the markets they serve, adding an extra level of accountability to the classified ad process.  More secure social and physical verification - Unlike the major national competitors, we have the opportunity to verify users’ identities using social, email and physical address verification, further weeding out spammers and scammers.  Mobile-centric technologies - The massive scale of national competitors has so far prevented them from implementing a more seamless mobile user experience using HTML5/responsive design strategies.  Print marketing - Local news organizations can still leverage their considerable print marketing footprint to add extra value to the online classified ad experience, including setting up a secure drop-off and pick-up point for transactions so that users don’t have to go into the homes of strangers.  Social marketing - Strategic use of social channels tied in with existing larger social networks from local publishers targeting local buyers only. For example, each ad with an approved photo will be fed to an Instagram, Pinterest and Twitter account, which would serve as a second, highly visual storefront.The following weekend, I built SavSwap, a prototype for the sort of product I believe could harness local news organizations’ competitive advantages while at the same time creating a cleaner, more visual, simpler and more secure user experience than the national competitors have to offer. While still very much in beta state, SavSwap is now being proposed as a model for all Morris properties to adopt, and is slated for a local launch in the Savannah market this quarter.Launch beta version of project A few of the key features that make SavSwap stand apart from other classified ad attempts include:  A fully responsive, device-agnostic design that makes ad listing, browsing and submission easy and free from wherever you are, mo matter device you use.  Social media and email authentification of all users.  Premium listing options for paid members of savannahnow.com, including “Membership” badges and higher page prominence  An inherently visual experience, with infinite scroll as well as traditional taxonomy and keyword search.  Geolocation.  Confidential on-site messaging system, with the option for users to display further contact information if they so desire.Features that we plan to implement include:  Options for users to pay a small additional fee for their listing to appear in the print edition of Savannah Morning News.  A native iOS and Android mobile app (xCode template has already been built and is currently being prepared for submission to iTunes and Google Play stores).For a brief presentation outlining the SavSwap model, see my slideshare presentation here. To see SavSwap in its current development state, see here.">
+  <meta name="twitter:url" content="http://localhost:4000/savswap-tackling-the-online-classified-ads-market/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@Carl V. Lewis">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2013-06-07T13:02:09-04:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "@carlvlewis",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="carlvlew.is Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+    <!-- start custom head snippets -->
+<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7917556/6301972/css/fonts.css" />
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-102583563-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-102583563-1');
+</script>
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://localhost:4000/">carlvlew.is</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/reporting/">News Writing</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/portfolio/">Portfolio</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/testimonials/">Testimonials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/resources/">Resources</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://cv.carlvlewis.net">CV</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/other-projects/">Other Projects</a></li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://cvlassets.s3.amazonaws.com/1697569.jpg" alt="Carl V. Lewis" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Carl V. Lewis</h3>
+    
+      <p class="author__bio" itemprop="description">
+        data visualization, civic-tech, digital humanities, media futurism.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">38.627003, -90.1999</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:hello@carlvlew.is">
+            <meta itemprop="email" content="hello@carlvlew.is" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://keybase.io/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-key" aria-hidden="true"></i> Keybase
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://github.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://twitter.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://plus.google.com/+carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-google-plus-square" aria-hidden="true"></i> Google+
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://quora.com/profile/carl-v-lewis-1" itemprop="sameAs">
+            <i class="fa fa-fw fa-quora" aria-hidden="true"></i> Quora
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://opendata.stackexchange.com/users/14970/carl-v-lewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-stack-exchange" aria-hidden="true"></i> StackExchange
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.codepen.io/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-codepen" aria-hidden="true"></i> Codepen
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://instagram.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-instagram" aria-hidden="true"></i> Instagram
+          </a>
+        </li>
+      
+
+      
+
+      
+
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.pinterest.com/carlvlewis" itemprop="sameAs">
+            <i class="fa fa-fw fa-pinterest" aria-hidden="true"></i> Pinterest
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li>
+    <a href="https://bl.ocks.org/carlvlewis" itemprop="sameAs">
+      <i class="fa fa-fw fa-cubes" aria-hidden="true"></i> Bl.ocks
+    </a></li>  
+
+<li>
+    <a href="https://meetup.com/opensavannah" itemprop="sameAs">
+      <i class="fa fa-fw fa-meetup" aria-hidden="true"></i> Meetup
+    </a></li>
+  <li>
+    <a href="https://slideshare.com/opensavannah" itemprop="sameAs">
+      <i class="fa fa-fw fa-slideshare" aria-hidden="true"></i> Slideshare
+    </a></li>
+<li>
+    <a href="https://medium.com/@carlvlewis" itemprop="sameAs">
+      <i class="fa fa-fw fa-medium" aria-hidden="true"></i> Medium
+    </a></li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SavSwap: Tackling the online classified ads market">
+    <meta itemprop="description" content="Innovative, quality journalism takes money to produce. In the past, one of the largest revenue streams for news organizations has traditionally come from the classified ad market – a revenue stream that has all but dried up in today’s era of Craigslist and eBay. As an online editor, developer, manager and digital strategist for Savannah Morning News and savannahnow.com, a midsized news organization owned by Morris Publishing Group, I’ve sat through countless digital strategy meetings discussing how we as a company can win back a sliver of the online classified ad market, if for no other reason than audience growth, and with the longterm goal of driving revenue to support our company’s journalistic efforts.After brainstorming the issue with our V.P. of Audience Steve Yelvington, I identified a few key competitive advantages news organizations may still possess in the classified market:  Brand trust/recognition - Local news organizations still command considerable trust and boosterism in the markets they serve, adding an extra level of accountability to the classified ad process.  More secure social and physical verification - Unlike the major national competitors, we have the opportunity to verify users’ identities using social, email and physical address verification, further weeding out spammers and scammers.  Mobile-centric technologies - The massive scale of national competitors has so far prevented them from implementing a more seamless mobile user experience using HTML5/responsive design strategies.  Print marketing - Local news organizations can still leverage their considerable print marketing footprint to add extra value to the online classified ad experience, including setting up a secure drop-off and pick-up point for transactions so that users don’t have to go into the homes of strangers.  Social marketing - Strategic use of social channels tied in with existing larger social networks from local publishers targeting local buyers only. For example, each ad with an approved photo will be fed to an Instagram, Pinterest and Twitter account, which would serve as a second, highly visual storefront.The following weekend, I built SavSwap, a prototype for the sort of product I believe could harness local news organizations’ competitive advantages while at the same time creating a cleaner, more visual, simpler and more secure user experience than the national competitors have to offer. While still very much in beta state, SavSwap is now being proposed as a model for all Morris properties to adopt, and is slated for a local launch in the Savannah market this quarter.Launch beta version of project A few of the key features that make SavSwap stand apart from other classified ad attempts include:  A fully responsive, device-agnostic design that makes ad listing, browsing and submission easy and free from wherever you are, mo matter device you use.  Social media and email authentification of all users.  Premium listing options for paid members of savannahnow.com, including “Membership” badges and higher page prominence  An inherently visual experience, with infinite scroll as well as traditional taxonomy and keyword search.  Geolocation.  Confidential on-site messaging system, with the option for users to display further contact information if they so desire.Features that we plan to implement include:  Options for users to pay a small additional fee for their listing to appear in the print edition of Savannah Morning News.  A native iOS and Android mobile app (xCode template has already been built and is currently being prepared for submission to iTunes and Google Play stores).For a brief presentation outlining the SavSwap model, see my slideshare presentation here. To see SavSwap in its current development state, see here.">
+    <meta itemprop="datePublished" content="June 07, 2013">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">SavSwap: Tackling the online classified ads market
+</h1><p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  11 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>June 07, 2013</span>,
+  
+  
+    by <span>Carl V. Lewis</span>
+  
+</p></header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p><img src="http://cvlassets.s3.amazonaws.com/Screen-Shot-2013-06-07-at-10.59.44-PM-e1373450527243-1.jpg" /></p>
+
+<p>Innovative, quality journalism takes money to produce. In the past, one of the largest revenue streams for news organizations has traditionally come from the classified ad market – a revenue stream that has all but dried up in today’s era of Craigslist and eBay. As an online editor, developer, manager and digital strategist for <a href="http://savannahnow.com">Savannah Morning News and savannahnow.com</a>, a midsized news organization owned by <a href="http://morris.com">Morris Publishing Group</a>, I’ve sat through countless digital strategy meetings discussing how we as a company can win back a sliver of the online classified ad market, if for no other reason than audience growth, and with the longterm goal of driving revenue to support our company’s journalistic efforts.</p>
+
+<p>After brainstorming the issue with our V.P. of Audience <a href="http://yelvington.com">Steve Yelvington</a>, I identified a few key competitive advantages news organizations may still possess in the classified market:</p>
+
+<ul>
+  <li><em>Brand trust/recognition</em> - Local news organizations still command considerable trust and boosterism in the markets they serve, adding an extra level of accountability to the classified ad process.</li>
+  <li><em>More secure social and physical verification</em> - Unlike the major national competitors, we have the opportunity to verify users’ identities using social, email and physical address verification, further weeding out spammers and scammers.</li>
+  <li><em>Mobile-centric technologies</em> - The massive scale of national competitors has so far prevented them from implementing a more seamless mobile user experience using HTML5/responsive design strategies.</li>
+  <li><em>Print marketing</em> - Local news organizations can still leverage their considerable print marketing footprint to add extra value to the online classified ad experience, including setting up a secure drop-off and pick-up point for transactions so that users don’t have to go into the homes of strangers.</li>
+  <li><em>Social marketing</em> - Strategic use of social channels tied in with existing larger social networks from local publishers targeting local buyers only. For example, each ad with an approved photo will be fed to an Instagram, Pinterest and Twitter account, which would serve as a second, highly visual storefront.</li>
+</ul>
+
+<p>The following weekend, I built <a href="http://dev-savswap.gotpantheon.com">SavSwap</a>, a prototype for the sort of product I believe could harness local news organizations’ competitive advantages while at the same time creating a cleaner, more visual, simpler and more secure user experience than the national competitors have to offer. While still very much in beta state, SavSwap is now being proposed as a model for all Morris properties to adopt, and is slated for a local launch in the Savannah market this quarter.</p>
+<h3><a href="http://dev-savswap.gotpantheon.com">Launch beta version of project</a> </h3>
+
+<p>A few of the key features that make SavSwap stand apart from other classified ad attempts include:</p>
+
+<ul>
+  <li>A fully responsive, device-agnostic design that makes ad listing, browsing and submission easy and free from wherever you are, mo matter device you use.</li>
+  <li><span style="line-height: 13px;">Social media and email authentification of <em>all</em> users.</span></li>
+  <li>Premium listing options for paid members of savannahnow.com, including “Membership” badges and higher page prominence</li>
+  <li>An inherently visual experience, with infinite scroll as well as traditional taxonomy and keyword search.</li>
+  <li>Geolocation.</li>
+  <li>Confidential on-site messaging system, with the option for users to display further contact information if they so desire.</li>
+</ul>
+
+<p>Features that we plan to implement include:</p>
+
+<ul>
+  <li>Options for users to pay a small additional fee for their listing to appear in the print edition of Savannah Morning News.</li>
+  <li>A native iOS and Android mobile app (xCode template has already been built and is currently being prepared for submission to iTunes and Google Play stores).</li>
+</ul>
+
+<p>For a brief presentation outlining the SavSwap model, see my <a href="http://www.slideshare.net/carlvlewis/tackling-the-local-classified-ad-market">slideshare presentation here</a>. To see SavSwap in its current development state, <a href="http://dev-savswap.gotpantheon.com">see here.</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+          <h4 class="page__meta-title"></h4>
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/category/blog" class="page__taxonomy-item" rel="tag">Blog</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/category/media-business-models" class="page__taxonomy-item" rel="tag">Media Business Models</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2013-06-07T13:02:09-04:00">June 07, 2013</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=carlvlewis&text=SavSwap: Tackling the online classified ads market http://localhost:4000/savswap-tackling-the-online-classified-ads-market/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/savswap-tackling-the-online-classified-ads-market/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http://localhost:4000/savswap-tackling-the-online-classified-ads-market/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/savswap-tackling-the-online-classified-ads-market/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/visualizing-latest-census-estimates-using-cartodb-and-leaflet/" class="pagination--pager" title="Visualizing 2012 census estimates using CartoDB and Leaflet
+">Previous</a>
+    
+    
+      <a href="http://localhost:4000/video-tutorial-creating-mobile-friendly-interactive-timelines-on-the-fly-with-timelinejs-and-google-spreadsheets/" class="pagination--pager" title="Tutorial: Creating mobile-friendly interactive timelines under deadline with Google Spreadsheets
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <h4 class="page__comments-title">Leave a Comment</h4>
+    <section id="disqus_thread"></section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/range-plots-to-visualize-opinion-gaps/" rel="permalink">Range plots ≠ dot plots
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  5 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>July 14, 2018</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        Range plots always have seemed a bit elitist to me. It’s one of those types of charts that people who want to show how skilled they are at visualization use.
+
+      
+    </p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/my-week-at-openvisconf-2017-in-tweets/" rel="permalink">My week at OpenVisConf 2017 in tweets – or, how I learned to stop hating and be okay with Tableau
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  13 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 26, 2017</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        I never thought I’d be so basic as to use Tableau Public, but it’s important to keep in mind the end goal of data visualization is insight, not technology or tools.
+
+      
+    </p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/civic-tech-as-new-journalism/" rel="permalink">Surveying the intersectional identity of the data journalism and civic-tech ecosystems
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  6 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 26, 2017</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        An explication of the interdisciplinary overlaps and differences between recent technology-driven social change movmements
+
+      
+    </p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/using-cartodb-2-0-geocode-private-prisons-comparison-state-state-incarceration-rates/" rel="permalink">Using CartoDB to visualize the relationship between private prisons and incarceration rates
+</a>
+      
+    </h2>
+    <p  class="page__meta">
+  
+    <span><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+
+
+
+  7 minute read
+</span>,
+  
+  
+    Posted on 
+    <span>April 17, 2017</span>,
+  
+   
+    by <span>Carl V. Lewis</span>
+  
+</p>
+    <p class="archive__item-excerpt" itemprop="description">
+      
+        The last post I wrote about CartoDB used the CartoDB API and Leaflet.js to produce a hover tooltip map of census data. Looking back, while it’s quite useful to learn CartoDB’s API, it’s now possible to achieve those same visual cues and interactivity without spending time wading through complex, undocumented JavaScript.
+
+      
+    </p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://twitter.com/carlvlewis"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+    
+      <li><a href="http://github.com/carlvlewis"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 @carlvlewis. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript">
+  	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  	var disqus_shortname = 'carlvlewis';
+
+  	/* * * DON'T EDIT BELOW THIS LINE * * */
+  	(function() {
+  		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  	})();
+
+  	/* * * DON'T EDIT BELOW THIS LINE * * */
+  	(function () {
+  		var s = document.createElement('script'); s.async = true;
+  		s.type = 'text/javascript';
+  		s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  		(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  	}());
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+  </body>
+</html>
