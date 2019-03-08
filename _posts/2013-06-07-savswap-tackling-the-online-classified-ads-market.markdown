@@ -1,0 +1,40 @@
+---
+title: 'SavSwap: Tackling the online classified ads market'
+date: '2013-06-07T17:02:09.000+00:00'
+categories:
+  - Blog
+  - Media Business Models
+---
+<img src="http://cvlassets.s3.amazonaws.com/Screen-Shot-2013-06-07-at-10.59.44-PM-e1373450527243-1.jpg">
+
+Innovative, quality journalism takes money to produce. In the past, one of the largest revenue streams for news organizations has traditionally come from the classified ad market – a revenue stream that has all but dried up in today's era of Craigslist and eBay. As an online editor, developer, manager and digital strategist for <a href="http://savannahnow.com">Savannah Morning News and savannahnow.com</a>, a midsized news organization owned by <a href="http://morris.com">Morris Publishing Group</a>, I've sat through countless digital strategy meetings discussing how we as a company can win back a sliver of the online classified ad market, if for no other reason than audience growth, and with the longterm goal of driving revenue to support our company's journalistic efforts.
+
+After brainstorming the issue with our V.P. of Audience <a href="http://yelvington.com">Steve Yelvington</a>, I identified a few key competitive advantages news organizations may still possess in the classified market:
+
+* *Brand trust/recognition* - Local news organizations still command considerable trust and boosterism in the markets they serve, adding an extra level of accountability to the classified ad process.
+* *More secure social and physical verification* - Unlike the major national competitors, we have the opportunity to verify users' identities using social, email and physical address verification, further weeding out spammers and scammers.
+* *Mobile-centric technologies* - The massive scale of national competitors has so far prevented them from implementing a more seamless mobile user experience using HTML5/responsive design strategies.
+* *Print marketing* - Local news organizations can still leverage their considerable print marketing footprint to add extra value to the online classified ad experience, including setting up a secure drop-off and pick-up point for transactions so that users don't have to go into the homes of strangers.
+* *Social marketing* - Strategic use of social channels tied in with existing larger social networks from local publishers targeting local buyers only. For example, each ad with an approved photo will be fed to an Instagram, Pinterest and Twitter account, which would serve as a second, highly visual storefront.
+
+
+The following weekend, I built <a href="http://dev-savswap.gotpantheon.com">SavSwap</a>, a prototype for the sort of product I believe could harness local news organizations' competitive advantages while at the same time creating a cleaner, more visual, simpler and more secure user experience than the national competitors have to offer. While still very much in beta state, SavSwap is now being proposed as a model for all Morris properties to adopt, and is slated for a local launch in the Savannah market this quarter.
+<h3><a href="http://dev-savswap.gotpantheon.com">Launch beta version of project</a> </h3>
+
+A few of the key features that make SavSwap stand apart from other classified ad attempts include:
+
+* A fully responsive, device-agnostic design that makes ad listing, browsing and submission easy and free from wherever you are, mo matter device you use.
+* <span style="line-height: 13px;">Social media and email authentification of *all* users.</span>
+* Premium listing options for paid members of savannahnow.com, including "Membership" badges and higher page prominence
+* An inherently visual experience, with infinite scroll as well as traditional taxonomy and keyword search.
+* Geolocation.
+* Confidential on-site messaging system, with the option for users to display further contact information if they so desire.
+
+
+Features that we plan to implement include:
+
+* Options for users to pay a small additional fee for their listing to appear in the print edition of Savannah Morning News.
+* A native iOS and Android mobile app (xCode template has already been built and is currently being prepared for submission to iTunes and Google Play stores).
+
+
+For a brief presentation outlining the SavSwap model, see my <a href="http://www.slideshare.net/carlvlewis/tackling-the-local-classified-ad-market">slideshare presentation here</a>. To see SavSwap in its current development state, <a href="http://dev-savswap.gotpantheon.com">see here.</a>
