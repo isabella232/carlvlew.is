@@ -4,7 +4,7 @@ timezone: America/New_York
 locale: en
 title_separator: "-"
 name: "@carlvlewis"
-baseurl: ""
+baseurl: "carlvlewis.github.io"
 url: ""
 repository: carlvlewis/carlvlewis.github.io
 teaser:
