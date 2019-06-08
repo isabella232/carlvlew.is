@@ -1,6 +1,6 @@
 ---
-title: Range plots ≠ dot plots
-date: '2018-07-14'
+title: On winning a Code for America fellowship
+date: '2019-06-05'
 comments: true
 excerpt: >-
   Range plots always have seemed a bit elitist to me. It's one of *those* types
