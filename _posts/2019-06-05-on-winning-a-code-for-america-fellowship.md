@@ -1,11 +1,9 @@
 ---
-title: On being accepted as a Code for America fellow
+title: On being accepted as a 2019 Code for America fellow
 date: '2019-06-05'
 comments: true
-excerpt: >-
-  Range plots always have seemed a bit elitist to me. It's one of *those* types
-  of charts that people who want to show how skilled they are at visualization
-  use.
+excerpt: >
+  For as long as I've been working at the intersection of social impact and data and UX design, I've dreamed of being a Code for America Fellow.
 published: true
 ---
 
