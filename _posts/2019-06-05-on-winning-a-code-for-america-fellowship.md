@@ -1,5 +1,5 @@
 ---
-title: On winning a Code for America fellowship
+title: On being accepted as a Code for America fellow
 date: '2019-06-05'
 comments: true
 excerpt: >-
