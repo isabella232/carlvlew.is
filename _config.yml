@@ -4,9 +4,9 @@ timezone: America/New_York
 locale: en
 title_separator: "-"
 name: "@carlvlewis"
-baseurl: "carlvlewis.github.io"
+baseurl: "carlvlew.is"
 url: ""
-repository: carlvlewis/carlvlewis.github.io
+repository: carlvlewis/carlvlew.is
 teaser:
 words_per_minute: 50
 comments:
