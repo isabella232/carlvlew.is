@@ -21,6 +21,10 @@
 <lastmod>2012-03-31T00:00:00-04:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/portfolio/candyman/</loc>
+<lastmod>2012-03-31T00:00:00-04:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/portfolio/MercerCluster.com/</loc>
 <lastmod>2012-03-31T00:00:00-04:00</lastmod>
 </url>
@@ -515,6 +519,10 @@
 <url>
 <loc>http://localhost:4000/range-plots-to-visualize-opinion-gaps/</loc>
 <lastmod>2018-07-14T00:00:00-04:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/zircle-for-ecosystem-mapping/</loc>
+<lastmod>2019-02-14T00:00:00-05:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/about/</loc>
