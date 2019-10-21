@@ -4,9 +4,9 @@ timezone: America/New_York
 locale: en
 title_separator: "-"
 name: "@carlvlewis"
-baseurl: "carlvlewis.github.io"
+baseurl: "/carlvlew.is"
 url: ""
-repository: carlvlewis/carlvlewis.github.io
+repository: codeforamerica/carlvlew.is
 teaser:
 words_per_minute: 50
 comments:
@@ -173,11 +173,11 @@ pagination:
   sort_reverse: true
 autopages:
   enabled: true
-  categories: 
+  categories:
     slugify:
       mode: raw
       cased: true
-    layouts: 
+    layouts:
       - 'categories.html'
     title: ':cat'
     permalink: '/category/:cat'
@@ -185,7 +185,7 @@ autopages:
     slugify:
       mode: raw
       cased: true
-    layouts: 
+    layouts:
       - 'collections.html'
     title: ':coll'
     permalink: '/:coll'
@@ -193,9 +193,9 @@ autopages:
     slugify:
       mode: raw
       cased: true
-    layouts: 
+    layouts:
       - 'tags.html'
-    title: ':tag' 
+    title: ':tag'
     permalink: '/tag/:tag'
 
 category_archive:
